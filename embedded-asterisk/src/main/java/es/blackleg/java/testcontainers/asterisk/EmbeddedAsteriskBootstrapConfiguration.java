@@ -5,6 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -13,6 +14,8 @@ import org.springframework.core.env.ConfigurableEnvironment;
 import org.springframework.core.env.MapPropertySource;
 import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.Network;
+import org.testcontainers.containers.wait.strategy.LogMessageWaitStrategy;
+import org.testcontainers.containers.wait.strategy.WaitStrategy;
 
 import java.util.LinkedHashMap;
 import java.util.Optional;
@@ -29,14 +32,24 @@ public class EmbeddedAsteriskBootstrapConfiguration {
 
     private final Logger logger = LoggerFactory.getLogger(EmbeddedAsteriskBootstrapConfiguration.class);
 
+    @Bean
+    @ConditionalOnMissingBean(name = "prometheusWaitStrategy")
+    public WaitStrategy asteriskWaitStrategy() {
+        var waitStrategy = new LogMessageWaitStrategy();
+        waitStrategy.withRegEx(".*Asterisk Ready.*");
+        return waitStrategy;
+    }
+
     @Bean(name = "asterisk", destroyMethod = "stop")
     public GenericContainer<?> asterisk(ConfigurableEnvironment environment,
-                                          AsteriskProperties properties,
-                                          Optional<Network> network) {
+                                        AsteriskProperties properties,
+                                        Optional<Network> network,
+                                        WaitStrategy asteriskWaitStrategy) {
 
         GenericContainer<?> container = new GenericContainer<>(getDockerImageName(properties))
                 .withNetwork(Network.SHARED)
-                .withExposedPorts(5038, 8088);
+                .withExposedPorts(5038, 8088)
+                .waitingFor(asteriskWaitStrategy);
 
         network.ifPresent(container::withNetwork);
 

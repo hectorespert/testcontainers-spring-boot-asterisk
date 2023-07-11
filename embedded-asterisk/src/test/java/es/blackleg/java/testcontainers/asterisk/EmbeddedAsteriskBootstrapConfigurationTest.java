@@ -2,7 +2,6 @@ package es.blackleg.java.testcontainers.asterisk;
 
 import org.asteriskjava.AsteriskVersion;
 import org.asteriskjava.manager.*;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -42,7 +41,6 @@ class EmbeddedAsteriskBootstrapConfigurationTest {
     }
 
     @Test
-    @Disabled
     void shouldBeARIAvailable(@Value("${embedded.asterisk.host}") String host,
                               @Value("${embedded.asterisk.ari.port}") int port,
                               @Value("${embedded.asterisk.ari.user}") String user,
@@ -52,7 +50,7 @@ class EmbeddedAsteriskBootstrapConfigurationTest {
         assertThat(user).isEqualTo("asterisk");
         assertThat(pass).isEqualTo("asterisk");
 
-        WebClient webClient = WebClient.builder()
+        var webClient = WebClient.builder()
                 .defaultHeaders(header -> header.setBasicAuth(user, pass))
                 .baseUrl("http://" + host + ":" + port)
                 .build();
@@ -63,7 +61,7 @@ class EmbeddedAsteriskBootstrapConfigurationTest {
                 .retrieve()
                 .bodyToMono(String.class)
                 .block();
-        assertThat(response).isEqualTo("Asterisk REST Interface");
+        assertThat(response).contains("pong");
     }
 
     @EnableAutoConfiguration
