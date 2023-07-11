@@ -142,3 +142,4 @@ buildNumber.properties
 .classpath
 
 # End of https://www.toptal.com/developers/gitignore/api/macos,maven,intellij+all
+.flattened-pom.xml
