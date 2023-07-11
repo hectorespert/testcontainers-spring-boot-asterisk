@@ -36,7 +36,7 @@ public class EmbeddedAsteriskBootstrapConfiguration {
 
         GenericContainer<?> container = new GenericContainer<>(getDockerImageName(properties))
                 .withNetwork(Network.SHARED)
-                .withExposedPorts(5038);
+                .withExposedPorts(5038, 8088);
 
         network.ifPresent(container::withNetwork);
 
@@ -56,6 +56,9 @@ public class EmbeddedAsteriskBootstrapConfiguration {
         map.put("embedded.asterisk.ami.port", asterisk.getMappedPort(5038));
         map.put("embedded.asterisk.ami.user", "asterisk");
         map.put("embedded.asterisk.ami.password", "asterisk");
+        map.put("embedded.asterisk.ari.port", asterisk.getMappedPort(8088));
+        map.put("embedded.asterisk.ari.user", "asterisk");
+        map.put("embedded.asterisk.ari.password", "asterisk");
 
         logger.info("Started Asterisk server. Connection details: {}", map);
 
