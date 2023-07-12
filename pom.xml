@@ -17,6 +17,13 @@
         <spring-boot.version>3.1.1</spring-boot.version>
         <spring-cloud.version>2022.0.3</spring-cloud.version>
     </properties>
+    <distributionManagement>
+        <repository>
+            <id>github</id>
+            <name>GitHub Packages</name>
+            <url>https://maven.pkg.github.com/hectorespert/testcontainers-spring-boot-asterisk</url>
+        </repository>
+    </distributionManagement>
     <dependencyManagement>
         <dependencies>
             <dependency>
