@@ -19,11 +19,5 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
         cache: maven
-    - name: Import GPG key
-      uses: crazy-max/ghaction-import-gpg@v5
-      with:
-        gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
-        passphrase: ${{ secrets.PASSPHRASE }}
-        fingerprint: FACCE9EDF1EF9AC9935A601BB2735E741E440CE7
     - name: Build with Maven
-      run: ./mvnw -B verify -P release --file pom.xml
+      run: ./mvnw -B verify --file pom.xml

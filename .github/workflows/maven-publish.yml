@@ -24,7 +24,14 @@ jobs:
         server-id: github
         settings-path: ${{ github.workspace }}
 
+    - name: Import GPG key
+      uses: crazy-max/ghaction-import-gpg@v5
+      with:
+        gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
+        passphrase: ${{ secrets.PASSPHRASE }}
+        fingerprint: FACCE9EDF1EF9AC9935A601BB2735E741E440CE7
+
     - name: Build and publish to GitHub Packages Apache Maven
-      run: mvn -s $GITHUB_WORKSPACE/settings.xml -B deploy -Drevision=$GITHUB_REF_NAME -Dchangelist= --file pom.xml
+      run: ./mvnw -s $GITHUB_WORKSPACE/settings.xml -B deploy -P release -Drevision=$GITHUB_REF_NAME -Dchangelist= --file pom.xml
       env:
         GITHUB_TOKEN: ${{ github.token }}
