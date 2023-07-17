@@ -7,6 +7,9 @@
     <artifactId>parent</artifactId>
     <version>${revision}${sha1}${changelist}</version>
     <packaging>pom</packaging>
+    <name>Testcontainers parent</name>
+    <description>Testcontainers parent pom</description>
+    <url>https://github.com/hectorespert/testcontainers-spring-boot-asterisk</url>
     <developers>
         <developer>
             <name>Hector Espert</name>

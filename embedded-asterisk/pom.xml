@@ -8,9 +8,10 @@
         <artifactId>parent</artifactId>
         <version>${revision}${sha1}${changelist}</version>
     </parent>
-
     <artifactId>embedded-asterisk</artifactId>
-
+    <name>Asterisk Testcontainer Spring Boot</name>
+    <description>Asterisk testcontainer for Spring Boot</description>
+    <url>https://github.com/hectorespert/testcontainers-spring-boot-asterisk</url>
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
