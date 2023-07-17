@@ -25,7 +25,5 @@ jobs:
         gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
         passphrase: ${{ secrets.PASSPHRASE }}
         fingerprint: FACCE9EDF1EF9AC9935A601BB2735E741E440CE7
-    - name: List keys
-      run: gpg -K
     - name: Build with Maven
-      run: mvn -B package --file pom.xml
+      run: ./mvnw -B verify -P release --file pom.xml
