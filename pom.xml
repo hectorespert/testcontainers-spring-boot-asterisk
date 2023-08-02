@@ -36,7 +36,7 @@
         <changelist>-SNAPSHOT</changelist>
         <sha1/>
         <spring-boot.version>3.1.2</spring-boot.version>
-        <spring-cloud.version>2022.0.3</spring-cloud.version>
+        <spring-cloud.version>2022.0.4</spring-cloud.version>
     </properties>
     <distributionManagement>
         <snapshotRepository>
