@@ -37,6 +37,7 @@
         <sha1/>
         <spring-boot.version>3.2.3</spring-boot.version>
         <spring-cloud.version>2023.0.0</spring-cloud.version>
+        <testcontainers-spring-boot.version>3.1.5</testcontainers-spring-boot.version>
     </properties>
     <distributionManagement>
         <snapshotRepository>
@@ -61,6 +62,13 @@
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-dependencies</artifactId>
                 <version>${spring-cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.playtika.testcontainers</groupId>
+                <artifactId>testcontainers-spring-boot-bom</artifactId>
+                <version>${testcontainers-spring-boot.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>

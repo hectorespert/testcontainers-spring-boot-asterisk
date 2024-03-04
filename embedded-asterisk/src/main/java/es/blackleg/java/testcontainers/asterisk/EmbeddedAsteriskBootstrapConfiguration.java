@@ -10,6 +10,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.core.env.ConfigurableEnvironment;
 import org.springframework.core.env.MapPropertySource;
 import org.testcontainers.containers.GenericContainer;
@@ -33,7 +34,7 @@ public class EmbeddedAsteriskBootstrapConfiguration {
     private final Logger logger = LoggerFactory.getLogger(EmbeddedAsteriskBootstrapConfiguration.class);
 
     @Bean
-    @ConditionalOnMissingBean(name = "prometheusWaitStrategy")
+    @ConditionalOnMissingBean
     public WaitStrategy asteriskWaitStrategy() {
         var waitStrategy = new LogMessageWaitStrategy();
         waitStrategy.withRegEx(".*Asterisk Ready.*");
@@ -44,7 +45,7 @@ public class EmbeddedAsteriskBootstrapConfiguration {
     public GenericContainer<?> asterisk(ConfigurableEnvironment environment,
                                         AsteriskProperties properties,
                                         Optional<Network> network,
-                                        WaitStrategy asteriskWaitStrategy) {
+                                        @Qualifier("asteriskWaitStrategy") WaitStrategy asteriskWaitStrategy) {
 
         GenericContainer<?> container = new GenericContainer<>(getDockerImageName(properties))
                 .withNetwork(Network.SHARED)
