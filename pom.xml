@@ -37,7 +37,7 @@
         <sha1/>
         <spring-boot.version>3.4.0</spring-boot.version>
         <spring-cloud.version>2024.0.0</spring-cloud.version>
-        <testcontainers-spring-boot.version>3.1.9</testcontainers-spring-boot.version>
+        <testcontainers-spring-boot.version>3.1.10</testcontainers-spring-boot.version>
     </properties>
     <distributionManagement>
         <snapshotRepository>
