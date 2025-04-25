@@ -36,7 +36,7 @@ class EmbeddedAsteriskBootstrapConfigurationTest {
         var managerConnection = managerConnectionFactory.createManagerConnection();
         managerConnection.login();
         assertThat(managerConnection.getState()).isEqualTo(ManagerConnectionState.CONNECTED);
-        assertThat(managerConnection.getVersion()).isEqualTo(AsteriskVersion.ASTERISK_18);
+        assertThat(managerConnection.getVersion()).isEqualTo(AsteriskVersion.ASTERISK_20);
         managerConnection.logoff();
     }
 
